@@ -32,7 +32,7 @@ class Conexion
         try {
             self::$conexion = new PDO($dsn, $user, $pass, $opciones);
         } catch (PDOException $ex) {
-            throw new \Exception("Error en conexion:", $ex->getMessage());
+            throw new \Exception("Error en conexion:". $ex->getMessage());
         }
     }
 }
