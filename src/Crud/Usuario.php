@@ -1,7 +1,7 @@
 <?php
-namespace Src;
+namespace Src\Crud;
 
-use Src\Conexion;
+//use Src\Crud\Conexion;
 use \Exception;
 use Src\Datos;
 use \PDO;

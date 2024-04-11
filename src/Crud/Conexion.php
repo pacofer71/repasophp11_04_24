@@ -1,6 +1,6 @@
 <?php
 
-namespace Src;
+namespace Src\Crud;
 
 use \PDO;
 use \PDOException;
@@ -18,7 +18,7 @@ class Conexion
     public static function setConexion()
     {
         //Cargamos los datos del .env
-        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . "/../");
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . "/../../");
         $dotenv->load();
         $host = $_ENV['HOST'];
         $user = $_ENV['USER'];

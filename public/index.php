@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . "/../vendor/autoload.php";
 
-use Src\Usuario;
+use Src\Crud\Usuario;
 
 Usuario::generarUsuarios(100);
 $usuarios = Usuario::read();
