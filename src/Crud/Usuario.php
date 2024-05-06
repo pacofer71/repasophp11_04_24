@@ -4,8 +4,8 @@ namespace Src\Crud;
 
 //use Src\Crud\Conexion;
 use \Exception;
-use Src\Datos;
 use \PDO;
+use Src\Utils\Datos;
 
 class Usuario extends Conexion
 {
@@ -87,6 +87,20 @@ class Usuario extends Conexion
             parent::$conexion = null;
         }
         return $stmt->rowCount();
+    }
+
+    public static function isEmailUnico($email) : bool{
+        $q="select id from usuarios where email=:e";
+        $stmt=parent::getConexion()->prepare($q);
+        try{
+            $stmt->execute([':e'=>$email]);
+            if($stmt->rowCount()!=0) return false;
+        }catch(Exception $ex){
+            throw new Exception("Error en email unico: ".$ex->getMessage());
+        }finally{
+            parent::$conexion=null;
+        }
+        return true;
     }
 
     //--------------------Setters
