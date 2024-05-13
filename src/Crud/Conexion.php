@@ -2,19 +2,22 @@
 
 namespace Src\Crud;
 
-use \PDO;
-use \PDOException;
+use PDO;
+use PDOException;
 
 class Conexion
 {
     protected static ?PDO $conexion = null; //?PDO 
 
-    public static function getConexion()
+    public static function getConexion(): PDO
     {
         if (self::$conexion == null) self::setConexion();
         return self::$conexion;
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function setConexion()
     {
         //Cargamos los datos del .env
@@ -32,7 +35,7 @@ class Conexion
         try {
             self::$conexion = new PDO($dsn, $user, $pass, $opciones);
         } catch (PDOException $ex) {
-            throw new \Exception("Error en conexion:". $ex->getMessage());
+            throw new \Exception("Error en conexion:" . $ex->getMessage());
         }
     }
 }

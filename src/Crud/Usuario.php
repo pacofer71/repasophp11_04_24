@@ -3,8 +3,8 @@
 namespace Src\Crud;
 
 //use Src\Crud\Conexion;
-use \Exception;
-use \PDO;
+use Exception;
+use PDO;
 use Src\Utils\Datos;
 
 class Usuario extends Conexion
@@ -47,12 +47,46 @@ class Usuario extends Conexion
         }
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-    public function update()
+
+    /**
+     * @throws Exception
+     */
+    public function update(string $id): void
     {
+        $q = "update usuarios set nombre=:n, apellidos=:a, email=:e, provincia=:p where id=:i";
+        $stmt = parent::getConexion()->prepare($q);
+        try {
+            $stmt->execute([
+                ':n' => $this->nombre,
+                ':a' => $this->apellidos,
+                ':e' => $this->email,
+                ':p' => $this->provincia,
+                ':i' => $id
+            ]);
+        } catch (Exception $ex) {
+            throw new Exception("Error en update: " . $ex->getMessage());
+        } finally {
+            parent::$conexion = null;
+        }
+
     }
-    public function delete()
+
+    public function delete($id): void
     {
+        $q = "delete from usuarios where id=:i";
+        $q = "update usuarios set nombre=:n, apellidos=:a, email=:e, provincia=:p where id=:i";
+        $stmt = parent::getConexion()->prepare($q);
+        try {
+            $stmt->execute([
+                ':i' => $id
+            ]);
+        } catch (Exception $ex) {
+            throw new Exception("Error en update: " . $ex->getMessage());
+        } finally {
+            parent::$conexion = null;
+        }
     }
+
     //Otros métodos
     public static function generarUsuarios(int $cantidad)
     {
@@ -75,6 +109,7 @@ class Usuario extends Conexion
                 ->create();
         }
     }
+
     private static function hayUsuarios(): bool
     {
         $q = "select * from usuarios";
@@ -89,16 +124,17 @@ class Usuario extends Conexion
         return $stmt->rowCount();
     }
 
-    public static function isEmailUnico($email) : bool{
-        $q="select id from usuarios where email=:e";
-        $stmt=parent::getConexion()->prepare($q);
-        try{
-            $stmt->execute([':e'=>$email]);
-            if($stmt->rowCount()!=0) return false;
-        }catch(Exception $ex){
-            throw new Exception("Error en email unico: ".$ex->getMessage());
-        }finally{
-            parent::$conexion=null;
+    public static function isEmailUnico($email): bool
+    {
+        $q = "select id from usuarios where email=:e";
+        $stmt = parent::getConexion()->prepare($q);
+        try {
+            $stmt->execute([':e' => $email]);
+            if ($stmt->rowCount() != 0) return false;
+        } catch (Exception $ex) {
+            throw new Exception("Error en email unico: " . $ex->getMessage());
+        } finally {
+            parent::$conexion = null;
         }
         return true;
     }

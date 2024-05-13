@@ -1,21 +1,24 @@
 {
-    "name": "pacofer71/crud1",
-    "description": "Ejemplo de CRUD",
-    "type": "project",
-    "license": "gnu/gpl",
-    "autoload": {
-        "psr-4": {
-            "Src\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Francisco Fernandez",
-            "email": "pacofer71@gmail.com"
-        }
-    ],
-    "require": {
-        "vlucas/phpdotenv": "^5.6",
-        "fakerphp/faker": "^1.23"
+  "name": "pacofer71/crud1",
+  "description": "Ejemplo de CRUD",
+  "type": "project",
+  "license": "gnu/gpl",
+  "autoload": {
+    "psr-4": {
+      "Src\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Francisco Fernandez",
+      "email": "pacofer71@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "vlucas/phpdotenv": "^5.6",
+    "fakerphp/faker": "^1.23",
+    "free2one/php-accessor": "~0.5.0",
+    "ext-pdo": "*"
+  }
 }
